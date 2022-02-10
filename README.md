@@ -1,0 +1,2 @@
+# Lab02_ed_2022
+Laboratorio 2 de Estructura de Datos I. Se quiere crear un aplicación para poder administrar los datos y estadísticas de los distintos equipos de eSports que participan en un torneo internacional de League of Legends. Se necesita tener la información de los distintos equipos, así como de sus integrantes. Se le pide que construya una aplicación para poder administrar todos los datos necesarios.
