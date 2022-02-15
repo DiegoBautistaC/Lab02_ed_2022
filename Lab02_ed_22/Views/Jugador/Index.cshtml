@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Lab02_ed_22.Models.JugadorModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KDA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreepScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KDA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreepScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { Nombre=item.Nombre}) |
+                @Html.ActionLink("Details", "Details", new { Nombre=item.Nombre }) |
+                @Html.ActionLink("Delete", "Delete", new {  Nombre=item.Nombre })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
