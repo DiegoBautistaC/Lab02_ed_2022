@@ -21,7 +21,7 @@ namespace Lab02_ed_22.Controllers
         public ActionResult Details(string Nombre)
         {
             var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == Nombre);
-            return View();
+            return View(model);
         }
 
         // GET: JugadorController/Create
