@@ -34,6 +34,17 @@ namespace Lab02_ed_22.Helpers
                 Equipo = "SKT1"
             }
         };
+
+        public List<EquipoModel> equipoList = new List<EquipoModel>
+        {
+            new EquipoModel
+            {
+                NombreEquipo = "Team Queso",
+                Coach = "Prod1gy",
+                Liga = "LEC",
+                FechaCreacion = Convert.ToDateTime("29/05/2019")
+            }
+        };
     }
 }
     
