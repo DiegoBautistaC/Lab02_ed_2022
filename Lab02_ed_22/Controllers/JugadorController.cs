@@ -25,45 +25,7 @@ namespace Lab02_ed_22.Controllers
         [HttpGet]
         public IActionResult Index(List<JugadorModel> jugadores = null)
         {
-            ListaDoble<JugadorModel> pruebalista = new ListaDoble<JugadorModel>();
-            {
-                new JugadorModel
-                {
-                    Nombre = "Douglas",
-                    Apellido = "Salazar",
-                    Rol = "Jungla",
-                    KDA = 2.99,
-                    CreepScore = 10,
-                    Equipo = "SKT1"
-                };
-            };
-            var jugador1 = new JugadorModel();
-            jugador1.Nombre = "Douglas";
-            jugador1.Apellido = "Salazar";
-            jugador1.Rol = "Jungla";
-            jugador1.KDA = 2.99;
-            jugador1.CreepScore = 10;
-            jugador1.Equipo = "SKT1";
-
-            var jugador2 = new JugadorModel();
-            jugador2.Nombre = "Segundo";
-            jugador2.Apellido = "2";
-            jugador2.Rol = "22";
-            jugador2.KDA = 2.00;
-            jugador2.CreepScore = 20;
-            jugador2.Equipo = "Equipo2";
-
-            var jugador3 = new JugadorModel();
-            jugador3.Nombre = "Tercero";
-            jugador3.Apellido = "3";
-            jugador3.Rol = "33";
-            jugador3.KDA = 3.33;
-            jugador3.CreepScore = 30;
-            jugador3.Equipo = "Equipo 3";
-
-            pruebalista.Agregar(jugador1);
-            pruebalista.Agregar(jugador2);
-            pruebalista.Agregar(jugador3);
+            
 
             return View(Data.Instance.jugadorlist);
         }
@@ -108,6 +70,52 @@ namespace Lab02_ed_22.Controllers
         // GET: JugadorController/Details/5
         public ActionResult Details(string Nombre)
         {
+            ListaDoble<JugadorModel> pruebalista = new ListaDoble<JugadorModel>();
+            {
+                new JugadorModel
+                {
+                    Nombre = "Douglas",
+                    Apellido = "Salazar",
+                    Rol = "Jungla",
+                    KDA = 2.99,
+                    CreepScore = 10,
+                    Equipo = "SKT1"
+                };
+            };
+            var jugador1 = new JugadorModel();
+            jugador1.Nombre = "Douglas";
+            jugador1.Apellido = "Salazar";
+            jugador1.Rol = "Jungla";
+            jugador1.KDA = 2.99;
+            jugador1.CreepScore = 10;
+            jugador1.Equipo = "SKT1";
+
+            var jugador2 = new JugadorModel();
+            jugador2.Nombre = "Segundo";
+            jugador2.Apellido = "2";
+            jugador2.Rol = "22";
+            jugador2.KDA = 2.00;
+            jugador2.CreepScore = 20;
+            jugador2.Equipo = "Equipo2";
+
+            var jugador3 = new JugadorModel();
+            jugador3.Nombre = "Tercero";
+            jugador3.Apellido = "3";
+            jugador3.Rol = "33";
+            jugador3.KDA = 3.33;
+            jugador3.CreepScore = 30;
+            jugador3.Equipo = "Equipo 3";
+
+            pruebalista.Agregar(jugador1);
+            pruebalista.Agregar(jugador2);
+            pruebalista.Agregar(jugador1);
+            pruebalista.Agregar(jugador3);
+            pruebalista.Agregar(jugador1);
+            pruebalista.Agregar(jugador3);
+            pruebalista.Agregar(jugador3);
+
+            var prueba = pruebalista.RemoverEn(2);
+
             var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == Nombre);
             return View(model);
         }
