@@ -1,23 +1,14 @@
 ﻿@model IEnumerable<Lab02_ed_22.Models.JugadorModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "BusquedaEquipo";
 }
 
-<form asp-controller="Jugador" asp-action="Index" method="post" enctype="multipart/form-data">
-    <input type="file" name="file"  />
-    <hr />
-    <button type="submit">Upload</button>
-</form>
-<h1>Index</h1>
+<h1>BusquedaEquipo</h1>
+
 <p>
-    <a asp-action="Create">Create New</a>
-    <a asp-action="BusquedaNombre"> Busqueda Nombre </a>
-    <a asp-action="BusquedaApellido"> Busqueda Apellido </a>
-    <a asp-action="BusquedaRol"> Busqueda Rol </a>
-    <a asp-action="BusquedaKDA"> Busqueda KDA </a>
-    <a asp-action="BusquedaCreepScore"> Busqueda CreepScore </a>
-    <a asp-action="BusquedaEquipo"> Busqueda Equipo </a>
+    Busqueda por Equipo: @Html.TextBox("Equipo") <br />
+    <input type="submit" value="BusquedaEquipo" />
 </p>
 <table class="table">
     <thead>
@@ -65,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.Equipo)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { Nombre = item.Nombre}) |
-                @Html.ActionLink("Details", "Details", new { Nombre = item.Nombre }) |
-                @Html.ActionLink("Delete", "Delete", new {  Nombre = item.Nombre }) |
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }
