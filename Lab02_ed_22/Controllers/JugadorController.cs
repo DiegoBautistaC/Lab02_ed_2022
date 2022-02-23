@@ -113,5 +113,69 @@ namespace Lab02_ed_22.Controllers
                 return View();
             }
         }
+
+        public ActionResult BusquedaNombre(string Nombre)
+        {
+
+            var model = from s in Data.Instance.jugadorlist select s;
+            if (!string.IsNullOrEmpty(Nombre))
+            {
+                model = model.Where(jugador => jugador.Nombre.Contains(Nombre));
+            }
+            return View(model);
+        }
+
+        public ActionResult BusquedaApellido(string Apellido)
+        {
+
+            var model = from s in Data.Instance.jugadorlist select s;
+            if (!string.IsNullOrEmpty(Apellido))
+            {
+                model = model.Where(jugador => jugador.Apellido.Contains(Apellido));
+            }
+            return View(model);
+        }
+        public ActionResult BusquedaRol(string Rol)
+        {
+
+            var model = from s in Data.Instance.jugadorlist select s;
+            if (!string.IsNullOrEmpty(Rol))
+            {
+                model = model.Where(jugador => jugador.Rol.Contains(Rol));
+            }
+            return View(model);
+        }
+        public ActionResult BusquedaKDA(string KDA)
+        {
+            var model = from s in Data.Instance.jugadorlist select s;
+            if (!string.IsNullOrEmpty(KDA))
+            {
+                 double gr = Convert.ToDouble(KDA);
+                return View(model.Where(X => X.KDA == gr));
+            }
+            return View(model);
+        }
+        public ActionResult BusquedaCreepScore(string CreepScore)
+        {
+            var model = from s in Data.Instance.jugadorlist select s;
+            if (!string.IsNullOrEmpty(CreepScore))
+            {
+                int gr = int.Parse((CreepScore));
+                return View(model.Where(X => X.CreepScore == gr));
+            }
+            return View(model);
+        }
+        public ActionResult BusquedaEquipo(string Equipo)
+        {
+
+            var model = from s in Data.Instance.jugadorlist select s;
+            if (!string.IsNullOrEmpty(Equipo))
+            {
+                model = model.Where(jugador => jugador.Equipo.Contains(Equipo));
+            }
+            return View(model);
+        }
     }
+
 }
+
