@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    class Nodo<T>
+    public class Nodo<T>
     {
-        public T Valor { get; set; }
-        public Nodo<T> Anterior;
-        public Nodo<T> Siguiente;
+        public static T Valor { get; set; }
+        public static Nodo<T> Anterior { get; set; }
+        public static Nodo<T> Siguiente { get; set; }
+
+        public Nodo(T valor)
+        {
+            Valor = valor;
+            Anterior = null;
+            Siguiente = null;
+        }
+
     }
 }

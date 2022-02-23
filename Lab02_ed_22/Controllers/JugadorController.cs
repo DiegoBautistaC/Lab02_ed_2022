@@ -24,7 +24,6 @@ namespace Lab02_ed_22.Controllers
         [HttpGet]
         public IActionResult Index(List<JugadorModel> jugadores = null)
         {
-            //jugadores = jugadores == null ? Data.Instance.jugadorlist : jugadores;
             return View(Data.Instance.jugadorlist);
         }
 

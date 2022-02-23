@@ -1,9 +1,13 @@
-﻿using Lab02_ed_22.Helpers;
+﻿using CsvHelper;
+using Lab02_ed_22.Helpers;
 using Lab02_ed_22.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +19,42 @@ namespace Lab02_ed_22.Controllers
         public ActionResult Index()
         {
             return View(Data.Instance.equipoList);
+        }
+
+        [HttpGet]
+        public IActionResult Index(List<EquipoModel> equipos = null)
+        {
+            return View(Data.Instance.equipoList);
+        }
+
+        [HttpPost]
+        public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hosting)
+        {
+            string fileName = $"{hosting.WebRootPath}\\Files\\{file.FileName}";
+            using (FileStream stramFile = System.IO.File.Create(fileName))
+            {
+                file.CopyTo(stramFile);
+                stramFile.Flush();
+            }
+
+            this.SetEquiposList(file.FileName);
+            return View(Data.Instance.equipoList);
+        }
+
+        private void SetEquiposList(string fileName)
+        {
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\Files"}" + "\\" + fileName;
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var equipo = csv.GetRecord<EquipoModel>();
+                    Data.Instance.equipoList.Add(equipo);
+                }
+            }
         }
 
         // GET: EquipoController/Details/5

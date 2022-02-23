@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    class ListaDoble<T>
+    public class ListaDoble<T>
     {
-        public Nodo<T> Cabeza { get; set; }
-        public int Tamaño { get; set; }
+        public static Nodo<T> Cabeza = null;
+        public static int Tamaño = 0;
 
         public static void Agregar(T valor)
         {
-            
-            if ()
+            if (Tamaño == 0)
+            {
+                Cabeza = new Nodo<T>(valor);
+            }
+            else
             {
 
             }
