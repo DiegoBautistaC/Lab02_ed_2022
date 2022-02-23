@@ -160,7 +160,7 @@ namespace Lab02_ed_22.Controllers
             var model = from s in Data.Instance.jugadorlist select s;
             if (!string.IsNullOrEmpty(CreepScore))
             {
-                int gr = int.Parse((CreepScore));
+                int gr = Convert.ToInt32(CreepScore);
                 return View(model.Where(X => X.CreepScore == gr));
             }
             return View(model);
@@ -174,6 +174,7 @@ namespace Lab02_ed_22.Controllers
                 model = model.Where(jugador => jugador.Equipo.Contains(Equipo));
             }
             return View(model);
+            //Ojala funcioe! 
         }
     }
 
