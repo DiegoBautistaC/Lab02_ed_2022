@@ -72,6 +72,7 @@ namespace Lab02_ed_22.Controllers
             {
                 var validacion = EquipoModel.Editar(nombre, new EquipoModel
                 {
+                    NombreEquipo = nombre,
                     Coach = collection["Coach"],
                     Liga = collection["Liga"],
                     FechaCreacion = Convert.ToDateTime(collection["FechaCreacion"])

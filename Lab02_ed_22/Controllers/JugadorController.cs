@@ -120,7 +120,7 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
-                JugadorModel.Editar(Nombre, new JugadorModel
+                var response = JugadorModel.Editar(Nombre, new JugadorModel
                 {
                     Nombre = collection["Nombre"],
                     Apellido = collection["Apellido"],
@@ -129,7 +129,11 @@ namespace Lab02_ed_22.Controllers
                     CreepScore = int.Parse(collection["CreepScore"]),
                     Equipo = collection["Equipo"]
                 });
-                return RedirectToAction(nameof(Index));
+                if (response)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return View();
             }
             catch
             {
@@ -152,8 +156,12 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
-                JugadorModel.Eliminar(Nombre);
-                return RedirectToAction(nameof(Index));
+                var response = JugadorModel.Eliminar(Nombre);
+                if (response)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return View();
             }
             catch
             {

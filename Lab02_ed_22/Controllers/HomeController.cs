@@ -28,46 +28,6 @@ namespace Lab02_ed_22.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Index(List<JugadorModel> jugadores = null)
-        {
-            jugadores = jugadores == null ? new List<JugadorModel>() : jugadores;
-            return View(jugadores);
-        }
-
-        [HttpPost]
-        public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hosting)
-        {
-            string fileName = $"{hosting.WebRootPath}\\Files\\{file.FileName}";
-            using (FileStream streamFile = System.IO.File.Create(fileName))
-            {
-                file.CopyTo(streamFile);
-                streamFile.Flush();
-            }
-
-            var jugadores = this.GetJugadoresList(file.FileName);
-            return Index(jugadores);
-        }
-
-        private List<JugadorModel> GetJugadoresList(string fileName)
-        {
-            List<JugadorModel> jugadores = new List<JugadorModel>();
-
-            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\Files"}" + "\\" + fileName;
-            using (var reader = new StreamReader(path))
-            using (var csv = new CsvReader(reader,CultureInfo.InvariantCulture))
-            {
-                csv.Read();
-                csv.ReadHeader();
-                while (csv.Read())
-                {
-                    var jugador = csv.GetRecord<JugadorModel>();
-                    jugadores.Add(jugador);
-                }
-            }
-
-            return jugadores;
-        }
 
         public IActionResult Privacy()
         {
