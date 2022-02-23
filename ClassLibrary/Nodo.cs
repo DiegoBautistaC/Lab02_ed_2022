@@ -8,9 +8,9 @@ namespace ClassLibrary
 {
     public class Nodo<T>
     {
-        public static T Valor { get; set; }
-        public static Nodo<T> Anterior { get; set; }
-        public static Nodo<T> Siguiente { get; set; }
+        public T Valor { get; set; }
+        public Nodo<T> Anterior { get; set; }
+        public Nodo<T> Siguiente { get; set; }
 
         public Nodo(T valor)
         {
