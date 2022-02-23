@@ -12,6 +12,8 @@ namespace ClassLibrary
         public static Nodo<T> Cola = null;
         public static int Tamaño = 0;
 
+        public delegate bool Delegado<D>(D valor1, D valor2);
+
         public bool Agregar(T valor)
         {
             var nuevoNodo = new Nodo<T>(valor);
@@ -80,10 +82,10 @@ namespace ClassLibrary
             }
         }
 
-        public int Encontrar(Predicate<T> valor)
+        public int EncontrarIndice(T valor)
         {
             
-            return 0;
+            return -1;
         }
     }
 }

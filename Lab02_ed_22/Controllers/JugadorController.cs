@@ -114,10 +114,21 @@ namespace Lab02_ed_22.Controllers
             pruebalista.Agregar(jugador3);
             pruebalista.Agregar(jugador3);
 
-            var prueba = pruebalista.RemoverEn(2);
+
 
             var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == Nombre);
             return View(model);
+        }
+
+        public delegate bool Delegado<T>(T valor1, T valor);
+
+        public static bool NombreEsIgual(string N1, string N2)
+        {
+            if (N1 == N2)
+            {
+                return true;
+            }
+            return false;
         }
 
         // GET: JugadorController/Create

@@ -30,15 +30,19 @@ namespace Lab02_ed_22.Controllers
         [HttpPost]
         public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hosting)
         {
-            string fileName = $"{hosting.WebRootPath}\\Files\\{file.FileName}";
-            using (FileStream stramFile = System.IO.File.Create(fileName))
+            if (file != null)
             {
-                file.CopyTo(stramFile);
-                stramFile.Flush();
-            }
+                string fileName = $"{hosting.WebRootPath}\\Files\\{file.FileName}";
+                using (FileStream stramFile = System.IO.File.Create(fileName))
+                {
+                    file.CopyTo(stramFile);
+                    stramFile.Flush();
+                }
 
-            this.SetEquiposList(file.FileName);
-            return View(Data.Instance.equipoList);
+                this.SetEquiposList(file.FileName);
+                return View(Data.Instance.equipoList);
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         private void SetEquiposList(string fileName)

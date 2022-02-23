@@ -35,9 +35,12 @@ namespace Lab02_ed_22.Models
         [MaxLength (99)]
         public string Equipo { get; set; }
 
+        public delegate bool elDelegado<T>(T valor1, T valor2);
+
         public static bool Guardar(JugadorModel modelo)
         {
             Data.Instance.jugadorlist.Add(modelo);
+
             return true;
         }
         public static bool Editar(string Nombre, JugadorModel model)
