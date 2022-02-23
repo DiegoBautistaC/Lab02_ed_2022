@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lab02_ed_22.Models;
 using Lab02_ed_22.Controllers;
+using ClassLibrary;
 
 namespace Lab02_ed_22.Helpers
 {
@@ -22,6 +23,8 @@ namespace Lab02_ed_22.Helpers
                 return _instance;
             }
         }
+
+
         public List<JugadorModel>jugadorlist = new List<JugadorModel>
         {
             new JugadorModel

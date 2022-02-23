@@ -6,6 +6,11 @@
 
 <h1>Index</h1>
 
+<form asp-controller="Equipo" asp-action="Index" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <hr />
+    <button type="submit">Cargar</button>
+</form>
 <p>
     <a asp-action="Create">Create New</a>
 </p>

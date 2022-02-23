@@ -6,22 +6,69 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lab02_ed_22.Models;
 using Lab02_ed_22.Helpers;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using CsvHelper;
+using System.Globalization;
 
 namespace Lab02_ed_22.Controllers
 {
     public class JugadorController : Controller
     {
         // GET: JugadorController
-        public ActionResult Index()
+       public IActionResult Index()
+       {
+            return View(Data.Instance.jugadorlist);
+       }
+
+        [HttpGet]
+        public IActionResult Index(List<JugadorModel> jugadores = null)
         {
             return View(Data.Instance.jugadorlist);
+        }
+
+        [HttpPost]
+        public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hosting)
+        {
+            string fileName = $"{hosting.WebRootPath}\\Files\\{file.FileName}";
+            using (FileStream streamFile = System.IO.File.Create(fileName))
+            {
+                file.CopyTo(streamFile);
+                streamFile.Flush();
+            }
+
+            this.SetJugadoresList(file.FileName);
+            return Index(Data.Instance.jugadorlist);
+        }
+
+        private void SetJugadoresList(string fileName)
+        {
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\Files"}" + "\\" + fileName;
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var jugador = csv.GetRecord<JugadorModel>();
+                    Data.Instance.jugadorlist.Add(jugador);
+                }
+            }
+
+            path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\FilesTo"}";
+            using(var write = new StreamWriter(path + "\\NewFile.csv"))
+            using (var csv = new CsvWriter(write, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(Data.Instance.jugadorlist);
+            }
         }
 
         // GET: JugadorController/Details/5
         public ActionResult Details(string Nombre)
         {
             var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == Nombre);
-            return View();
+            return View(model);
         }
 
         // GET: JugadorController/Create
@@ -50,7 +97,6 @@ namespace Lab02_ed_22.Controllers
                 {
                     return RedirectToAction(nameof(Index));
                 }
-                ViewBag["Error"] = "Error while creating new element";
                 return View();
             }
             catch
@@ -73,7 +119,7 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
-                JugadorModel.Editar(Nombre, new JugadorModel
+                var response = JugadorModel.Editar(Nombre, new JugadorModel
                 {
                     Nombre = collection["Nombre"],
                     Apellido = collection["Apellido"],
@@ -82,7 +128,11 @@ namespace Lab02_ed_22.Controllers
                     CreepScore = int.Parse(collection["CreepScore"]),
                     Equipo = collection["Equipo"]
                 });
-                return RedirectToAction(nameof(Index));
+                if (response)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return View();
             }
             catch
             {
@@ -105,8 +155,12 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
-                JugadorModel.Eliminar(Nombre);
-                return RedirectToAction(nameof(Index));
+                var response = JugadorModel.Eliminar(Nombre);
+                if (response)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return View();
             }
             catch
             {
