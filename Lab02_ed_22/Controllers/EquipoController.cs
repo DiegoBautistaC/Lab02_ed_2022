@@ -58,9 +58,9 @@ namespace Lab02_ed_22.Controllers
         }
 
         // GET: EquipoController/Details/5
-        public ActionResult Details(string nombre)
+        public ActionResult Details(string id)
         {
-            var equipo = Data.Instance.equipoList.Find(model => model.NombreEquipo == nombre);
+            var equipo = Data.Instance.equipoList.Find(model => model.NombreEquipo == id);
             return View(equipo);
         }
 
@@ -97,22 +97,22 @@ namespace Lab02_ed_22.Controllers
         }
 
         // GET: EquipoController/Edit/5
-        public ActionResult Edit(string nombre)
+        public ActionResult Edit(string id)
         {
-            var equipo = Data.Instance.equipoList.Find(modelo => modelo.NombreEquipo == nombre);
+            var equipo = Data.Instance.equipoList.Find(modelo => modelo.NombreEquipo == id);
             return View(equipo);
         }
 
         // POST: EquipoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string nombre, IFormCollection collection)
+        public ActionResult Edit(string id, IFormCollection collection)
         {
             try
             {
-                var validacion = EquipoModel.Editar(nombre, new EquipoModel
+                var validacion = EquipoModel.Editar(id, new EquipoModel
                 {
-                    NombreEquipo = nombre,
+                    NombreEquipo = id,
                     Coach = collection["Coach"],
                     Liga = collection["Liga"],
                     FechaCreacion = Convert.ToDateTime(collection["FechaCreacion"])
@@ -130,20 +130,20 @@ namespace Lab02_ed_22.Controllers
         }
 
         // GET: EquipoController/Delete/5
-        public ActionResult Delete(string nombre)
+        public ActionResult Delete(string id)
         {
-            var equipo = Data.Instance.equipoList.Find(modelo => modelo.NombreEquipo == nombre);
+            var equipo = Data.Instance.equipoList.Find(modelo => modelo.NombreEquipo == id);
             return View(equipo);
         }
 
         // POST: EquipoController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string nombre, IFormCollection collection)
+        public ActionResult Delete(string id, IFormCollection collection)
         {
             try
             {
-                var validacion = EquipoModel.Eliminar(nombre);
+                var validacion = EquipoModel.Eliminar(id);
                 if (validacion)
                 {
                     return RedirectToAction(nameof(Index));
