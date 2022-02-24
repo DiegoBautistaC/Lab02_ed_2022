@@ -110,9 +110,10 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
-                var validacion = EquipoModel.Editar(id, new EquipoModel
+                var equipo = Data.Instance.equipoList.Find(modelo => modelo.NombreEquipo == id);
+                var validacion = EquipoModel.Editar(equipo, new EquipoModel
                 {
-                    NombreEquipo = id,
+                    NombreEquipo = collection["NombreEquipo"],
                     Coach = collection["Coach"],
                     Liga = collection["Liga"],
                     FechaCreacion = Convert.ToDateTime(collection["FechaCreacion"])

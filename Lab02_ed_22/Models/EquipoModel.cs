@@ -34,15 +34,15 @@ namespace Lab02_ed_22.Models
             return true;
         }
 
-        public static bool Editar(string nombre, EquipoModel equipo)
+        public static bool Editar(EquipoModel original, EquipoModel nuevo)
         {
-            var posicion = Data.Instance.equipoList.FindIndex(modelo => modelo.NombreEquipo == nombre);
+            var posicion = Data.Instance.equipoList.FindIndex(modelo => modelo.NombreEquipo == original.NombreEquipo);
             Data.Instance.equipoList[posicion] = new EquipoModel
             {
-                NombreEquipo = nombre,
-                Coach = equipo.Coach,
-                Liga = equipo.Liga,
-                FechaCreacion = equipo.FechaCreacion
+                NombreEquipo = original.NombreEquipo,
+                Coach = nuevo.Coach,
+                Liga = nuevo.Liga,
+                FechaCreacion = original.FechaCreacion
             };
             return true;
         }

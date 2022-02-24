@@ -108,7 +108,7 @@ namespace Lab02_ed_22.Controllers
         // GET: JugadorController/Edit/5
         public ActionResult Edit(string id)
         {
-            var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == id);
+            var model = Data.Instance.jugadorlist.Find(modelo => modelo.Nombre == id);
             return View(model);
         }
 
@@ -119,7 +119,8 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
-                var response = JugadorModel.Editar(id, new JugadorModel
+                var jugador = Data.Instance.jugadorlist.Find(modelo => modelo.Nombre == id);
+                var response = JugadorModel.Editar(jugador, new JugadorModel
                 {
                     Nombre = collection["Nombre"],
                     Apellido = collection["Apellido"],

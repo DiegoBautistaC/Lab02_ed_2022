@@ -1,12 +1,11 @@
 ﻿@model Lab02_ed_22.Models.JugadorModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
-<h1>Edit</h1>
+<h1>Editando a @Html.DisplayFor(modelo => modelo.Nombre) @Html.DisplayFor(modelo => modelo.Apellido)</h1>
 
-<h4>JugadorModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,12 +13,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <h4>@Html.DisplayFor(modelo => modelo.Nombre)</h4>
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Apellido" class="control-label"></label>
-                <input asp-for="Apellido" class="form-control" />
+                <h4>@Html.DisplayFor(modelo => modelo.Apellido)</h4>
                 <span asp-validation-for="Apellido" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -29,12 +28,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="KDA" class="control-label"></label>
-                <input asp-for="KDA" class="form-control" />
+                <h4>@Html.DisplayFor(modelo => modelo.KDA)</h4>
                 <span asp-validation-for="KDA" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CreepScore" class="control-label"></label>
-                <input asp-for="CreepScore" class="form-control" />
+                <h4>@Html.DisplayFor(modelo => modelo.CreepScore)</h4>
                 <span asp-validation-for="CreepScore" class="text-danger"></span>
             </div>
             <div class="form-group">
