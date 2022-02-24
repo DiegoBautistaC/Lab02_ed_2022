@@ -297,7 +297,7 @@ namespace Lab02_ed_22.Controllers
             var model = from s in Data.Instance.jugadorlist select s;
             if (!string.IsNullOrEmpty(CreepScore))
             {
-                int gr = int.Parse((CreepScore));
+                int gr = Convert.ToInt32(CreepScore);
                 return View(model.Where(X => X.CreepScore == gr));
             }
             reloj.Stop();
@@ -316,6 +316,7 @@ namespace Lab02_ed_22.Controllers
             reloj.Stop();
             Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por Equipo: " + reloj.ElapsedMilliseconds + " ms\n");
             return View(model);
+            //Ojala funcioe! 
         }
     }
 
