@@ -1,17 +1,16 @@
 ﻿@model IEnumerable<Lab02_ed_22.Models.JugadorModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista jugadores";
 }
 
 <form asp-controller="Jugador" asp-action="Index" method="post" enctype="multipart/form-data">
     <input type="file" name="file"  />
-    <hr />
-    <button type="submit">Upload</button>
+    <button type="submit">Cargar</button>
 </form>
-<h1>Index</h1>
+<h1>Jugadores</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nuevo jugador</a>
     <a asp-action="BusquedaNombre"> Busqueda Nombre </a>
     <a asp-action="BusquedaApellido"> Busqueda Apellido </a>
     <a asp-action="BusquedaRol"> Busqueda Rol </a>
@@ -65,9 +64,9 @@
                 @Html.DisplayFor(modelItem => item.Equipo)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Nombre}) |
-                @Html.ActionLink("Details", "Details", new { id = item.Nombre }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Nombre }) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.Nombre}) |
+                @Html.ActionLink("Details", "Details", new { id=item.Nombre }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Nombre }) |
             </td>
         </tr>
 }
