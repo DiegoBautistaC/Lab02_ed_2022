@@ -51,6 +51,14 @@ namespace Lab02_ed_22.Models
         {
             int posicion = Data.Instance.equipoList.FindIndex(modelo => modelo.NombreEquipo == nombre);
             Data.Instance.equipoList.RemoveAt(posicion);
+            for (int i = 0; i < Data.Instance.jugadorlist.Count; i++)
+            {
+                if (Data.Instance.jugadorlist[i].Equipo == nombre)
+                {
+                    JugadorModel.Eliminar(Data.Instance.jugadorlist[i].Nombre);
+                    i--;
+                }
+            }
             return true;
         }
     }

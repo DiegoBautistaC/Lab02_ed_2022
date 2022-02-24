@@ -68,7 +68,7 @@ namespace Lab02_ed_22.Controllers
         }
 
         // GET: JugadorController/Details/5
-        public ActionResult Details(string Nombre)
+        public ActionResult Details(string id)
         {
             ListaDoble<JugadorModel> pruebalista = new ListaDoble<JugadorModel>();
             {
@@ -113,9 +113,6 @@ namespace Lab02_ed_22.Controllers
             pruebalista.Agregar(jugador1);
             pruebalista.Agregar(jugador3);
             pruebalista.Agregar(jugador3);
-
-
-
             var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == Nombre);
             return View(model);
         }
@@ -166,20 +163,20 @@ namespace Lab02_ed_22.Controllers
         }
 
         // GET: JugadorController/Edit/5
-        public ActionResult Edit(string Nombre)
+        public ActionResult Edit(string id)
         {
-            var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == Nombre);
+            var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == id);
             return View(model);
         }
 
         // POST: JugadorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string Nombre, IFormCollection collection)
+        public ActionResult Edit(string id, IFormCollection collection)
         {
             try
             {
-                var response = JugadorModel.Editar(Nombre, new JugadorModel
+                var response = JugadorModel.Editar(id, new JugadorModel
                 {
                     Nombre = collection["Nombre"],
                     Apellido = collection["Apellido"],
@@ -201,21 +198,21 @@ namespace Lab02_ed_22.Controllers
         }
 
         // GET: JugadorController/Delete/5
-        public ActionResult Delete(string Nombre)
+        public ActionResult Delete(string id)
         {
 
-            var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == Nombre);
+            var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == id);
             return View(model);
         }
 
         // POST: JugadorController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string Nombre, IFormCollection collection)
+        public ActionResult Delete(string id, IFormCollection collection)
         {
             try
             {
-                var response = JugadorModel.Eliminar(Nombre);
+                var response = JugadorModel.Eliminar(id);
                 if (response)
                 {
                     return RedirectToAction(nameof(Index));

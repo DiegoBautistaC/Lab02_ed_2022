@@ -48,9 +48,9 @@
                 @Html.DisplayFor(modelItem => item.FechaCreacion)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { Nombre = item.NombreEquipo  }) |
-                @Html.ActionLink("Details", "Details", new { Nombre = item.NombreEquipo  }) |
-                @Html.ActionLink("Delete", "Delete", new { Nombre = item.NombreEquipo  }) |
+                @Html.ActionLink("Edit", "Edit", new {  id=item.NombreEquipo }) |
+                @Html.ActionLink("Details", "Details", new { id = item.NombreEquipo }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.NombreEquipo  })
             </td>
         </tr>
 }
