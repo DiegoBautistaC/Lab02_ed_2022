@@ -1,18 +1,17 @@
 ﻿@model IEnumerable<Lab02_ed_22.Models.EquipoModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista equipos";
 }
 
-<h1>Index</h1>
+<h1>Equipos</h1>
 
 <form asp-controller="Equipo" asp-action="Index" method="post" enctype="multipart/form-data">
     <input type="file" name="file" />
-    <hr />
     <button type="submit">Cargar</button>
 </form>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nuevo Equipo</a>
 </p>
 <table class="table">
     <thead>

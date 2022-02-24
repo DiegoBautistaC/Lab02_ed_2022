@@ -40,18 +40,17 @@ namespace Lab02_ed_22.Models
             Data.Instance.jugadorlist.Add(modelo);
             return true;
         }
-        public static bool Editar(JugadorModel original, JugadorModel nuevo)
+        public static bool Editar(JugadorModel O, JugadorModel N)
         {
-            var position = Data.Instance.jugadorlist.FindIndex(modelo => modelo.Nombre == original.Nombre);
+            var position = Data.Instance.jugadorlist.FindIndex(modelo => modelo.Nombre == O.Nombre);
             Data.Instance.jugadorlist[position] = new JugadorModel
             {
-
-                Nombre = original.Nombre,
-                Apellido = original.Apellido,
-                Rol = nuevo.Rol,
-                KDA = original.KDA,
-                CreepScore = original.CreepScore,
-                Equipo = nuevo.Equipo
+                Nombre = O.Nombre,
+                Apellido = O.Apellido,
+                Rol = N.Rol,
+                KDA = O.KDA,
+                CreepScore = O.CreepScore,
+                Equipo = N.Equipo
             };
             return true;
         }

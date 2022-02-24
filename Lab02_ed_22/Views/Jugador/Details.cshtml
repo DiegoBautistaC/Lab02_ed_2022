@@ -1,13 +1,12 @@
 ﻿@model Lab02_ed_22.Models.JugadorModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles jugador";
 }
 
-<h1>Details</h1>
+<h1>Detalles del jugador @Html.DisplayFor(modelo => modelo.Nombre) @Html.DisplayFor(modelo => modelo.Apellido)</h1>
 
 <div>
-    <h4>JugadorModel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
