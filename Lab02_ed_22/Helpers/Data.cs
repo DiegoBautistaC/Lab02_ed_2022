@@ -10,7 +10,10 @@ namespace Lab02_ed_22.Helpers
 {
     public class Data
     {
+        public string TiempoEjecucion { get; set; }
+
         private static Data _instance = null;
+
         public static Data Instance
         {
             get
@@ -23,7 +26,6 @@ namespace Lab02_ed_22.Helpers
                 return _instance;
             }
         }
-
 
         public List<JugadorModel>jugadorlist = new List<JugadorModel>
         {
