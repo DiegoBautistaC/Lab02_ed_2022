@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Lab02_ed_22.Models.EquipoModel>
+
+@{
+    ViewData["Title"] = "BusquedaFecha";
+}
+
+<h1>BusquedaFecha</h1>
+<p>
+
+    @using (Html.BeginForm())
+    {
+    <p>
+        Fecha: @Html.TextBox("Fecha") <br />
+        <input type="submit" value="Buscar" />
+    </p>
+}
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreEquipo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Coach)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Liga)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaCreacion)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreEquipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Coach)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Liga)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCreacion)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

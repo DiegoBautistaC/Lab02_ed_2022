@@ -177,5 +177,60 @@ namespace Lab02_ed_22.Controllers
                 return View();
             }
         }
+        public ActionResult BusquedaLiga(string Liga)
+        {
+            var reloj = new Stopwatch();
+            reloj.Start();
+            var model = from s in Data.Instance.equipoList select s;
+            if (!string.IsNullOrEmpty(Liga))
+            {
+                model = model.Where(equipo => equipo.Liga.Contains(Liga));
+            }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por rol: " + reloj.ElapsedMilliseconds + " ms\n");
+            return View(model);
+        }
+        public ActionResult BusquedaCoach(string Coach)
+        {
+            var reloj = new Stopwatch();
+            reloj.Start();
+            var model = from s in Data.Instance.equipoList select s;
+            if (!string.IsNullOrEmpty(Coach))
+            {
+                model = model.Where(equipo => equipo.Coach.Contains(Coach));
+            }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por rol: " + reloj.ElapsedMilliseconds + " ms\n");
+            return View(model);
+        }
+        public ActionResult BusquedaFecha(string Fecha)
+        {
+            var reloj = new Stopwatch();
+            reloj.Start();
+            var model = from s in Data.Instance.equipoList select s;
+            if (!string.IsNullOrEmpty(Fecha))
+            {
+              DateTime gr = Convert.ToDateTime(Fecha);
+                return View(model.Where(X => X.FechaCreacion == gr));
+            }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por KDA: " + reloj.ElapsedMilliseconds + " ms\n");
+            return View(model);
+        }
+        public ActionResult BusquedaNombreE(string NombreE)
+        {
+            var reloj = new Stopwatch();
+            reloj.Start();
+            var model = from s in Data.Instance.equipoList select s;
+            if (!string.IsNullOrEmpty(NombreE))
+            {
+                model = model.Where(equipo => equipo.NombreEquipo.Contains(NombreE));
+            }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por nombre: " + reloj.ElapsedMilliseconds + " ms\n");
+            return View(model);
+        }
+
+
     }
 }
