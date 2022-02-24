@@ -1,14 +1,13 @@
 ﻿@model Lab02_ed_22.Models.JugadorModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Borrar";
 }
 
-<h1>Delete</h1>
+<h1>Eliminando Jugador @Html.DisplayFor(modelo => modelo.Nombre) @Html.DisplayFor(modelo => modelo.Apellido)</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Seguro que desea eliminarlo?</h3>
 <div>
-    <h4>JugadorModel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">

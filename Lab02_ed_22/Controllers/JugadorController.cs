@@ -30,15 +30,19 @@ namespace Lab02_ed_22.Controllers
         [HttpPost]
         public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hosting)
         {
-            string fileName = $"{hosting.WebRootPath}\\Files\\{file.FileName}";
-            using (FileStream streamFile = System.IO.File.Create(fileName))
+            if (file != null)
             {
-                file.CopyTo(streamFile);
-                streamFile.Flush();
-            }
+                string fileName = $"{hosting.WebRootPath}\\Files\\{file.FileName}";
+                using (FileStream streamFile = System.IO.File.Create(fileName))
+                {
+                    file.CopyTo(streamFile);
+                    streamFile.Flush();
+                }
 
-            this.SetJugadoresList(file.FileName);
-            return Index(Data.Instance.jugadorlist);
+                this.SetJugadoresList(file.FileName);
+                return Index(Data.Instance.jugadorlist);
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         private void SetJugadoresList(string fileName)
@@ -108,7 +112,7 @@ namespace Lab02_ed_22.Controllers
         // GET: JugadorController/Edit/5
         public ActionResult Edit(string id)
         {
-            var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == id);
+            var model = Data.Instance.jugadorlist.Find(modelo => modelo.Nombre == id);
             return View(model);
         }
 
@@ -119,16 +123,17 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
-                var response = JugadorModel.Editar(id, new JugadorModel
+                var jugador = Data.Instance.jugadorlist.Find(modelo => modelo.Nombre == id);
+                var validacion = JugadorModel.Editar(jugador, new JugadorModel
                 {
-                    Nombre = collection["Nombre"],
-                    Apellido = collection["Apellido"],
+                    Nombre = jugador.Nombre,
+                    Apellido = jugador.Apellido,
                     Rol = collection["Rol"],
-                    KDA = double.Parse(collection["KDA"]),
-                    CreepScore = int.Parse(collection["CreepScore"]),
+                    KDA = jugador.KDA,
+                    CreepScore = jugador.CreepScore,
                     Equipo = collection["Equipo"]
                 });
-                if (response)
+                if (validacion)
                 {
                     return RedirectToAction(nameof(Index));
                 }

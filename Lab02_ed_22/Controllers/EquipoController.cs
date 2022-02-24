@@ -30,15 +30,19 @@ namespace Lab02_ed_22.Controllers
         [HttpPost]
         public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hosting)
         {
-            string fileName = $"{hosting.WebRootPath}\\Files\\{file.FileName}";
-            using (FileStream stramFile = System.IO.File.Create(fileName))
+            if (file != null)
             {
-                file.CopyTo(stramFile);
-                stramFile.Flush();
-            }
+                string fileName = $"{hosting.WebRootPath}\\Files\\{file.FileName}";
+                using (FileStream stramFile = System.IO.File.Create(fileName))
+                {
+                    file.CopyTo(stramFile);
+                    stramFile.Flush();
+                }
 
-            this.SetEquiposList(file.FileName);
-            return View(Data.Instance.equipoList);
+                this.SetEquiposList(file.FileName);
+                return View(Data.Instance.equipoList);
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         private void SetEquiposList(string fileName)
@@ -110,9 +114,10 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
-                var validacion = EquipoModel.Editar(id, new EquipoModel
+                var equipo = Data.Instance.equipoList.Find(modelo => modelo.NombreEquipo == id);
+                var validacion = EquipoModel.Editar(equipo, new EquipoModel
                 {
-                    NombreEquipo = id,
+                    NombreEquipo = collection["NombreEquipo"],
                     Coach = collection["Coach"],
                     Liga = collection["Liga"],
                     FechaCreacion = Convert.ToDateTime(collection["FechaCreacion"])
