@@ -84,7 +84,6 @@ namespace ClassLibrary
 
         public int EncontrarIndice(T valor)
         {
-            
             return -1;
         }
     }

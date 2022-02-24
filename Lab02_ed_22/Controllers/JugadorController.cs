@@ -11,6 +11,7 @@ using System.IO;
 using CsvHelper;
 using System.Globalization;
 using ClassLibrary;
+using System.Diagnostics;
 
 namespace Lab02_ed_22.Controllers
 {
@@ -25,8 +26,51 @@ namespace Lab02_ed_22.Controllers
         [HttpGet]
         public IActionResult Index(List<JugadorModel> jugadores = null)
         {
-            
+            #region Ejemplo Lista doblemente enlazada
+            //ListaDoble<JugadorModel> pruebalista = new ListaDoble<JugadorModel>();
+            //{
+            //    new JugadorModel
+            //    {
+            //        Nombre = "Douglas",
+            //        Apellido = "Salazar",
+            //        Rol = "Jungla",
+            //        KDA = 2.99,
+            //        CreepScore = 10,
+            //        Equipo = "SKT1"
+            //    };
+            //};
+            //var jugador1 = new JugadorModel();
+            //jugador1.Nombre = "Douglas";
+            //jugador1.Apellido = "Salazar";
+            //jugador1.Rol = "Jungla";
+            //jugador1.KDA = 2.99;
+            //jugador1.CreepScore = 10;
+            //jugador1.Equipo = "SKT1";
 
+            //var jugador2 = new JugadorModel();
+            //jugador2.Nombre = "Segundo";
+            //jugador2.Apellido = "2";
+            //jugador2.Rol = "22";
+            //jugador2.KDA = 2.00;
+            //jugador2.CreepScore = 20;
+            //jugador2.Equipo = "Equipo2";
+
+            //var jugador3 = new JugadorModel();
+            //jugador3.Nombre = "Tercero";
+            //jugador3.Apellido = "3";
+            //jugador3.Rol = "33";
+            //jugador3.KDA = 3.33;
+            //jugador3.CreepScore = 30;
+            //jugador3.Equipo = "Equipo 3";
+
+            //pruebalista.Agregar(jugador1);
+            //pruebalista.Agregar(jugador2);
+            //pruebalista.Agregar(jugador1);
+            //pruebalista.Agregar(jugador3);
+            //pruebalista.Agregar(jugador1);
+            //pruebalista.Agregar(jugador3);
+            //pruebalista.Agregar(jugador3);
+            #endregion
             return View(Data.Instance.jugadorlist);
         }
 
@@ -50,6 +94,8 @@ namespace Lab02_ed_22.Controllers
 
         private void SetJugadoresList(string fileName)
         {
+            var reloj = new Stopwatch();
+            reloj.Start();
             var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\Files"}" + "\\" + fileName;
             using (var reader = new StreamReader(path))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -62,6 +108,8 @@ namespace Lab02_ed_22.Controllers
                     Data.Instance.jugadorlist.Add(jugador);
                 }
             }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución lectura de jugadores csv: " + reloj.ElapsedMilliseconds + " ms\n");
 
             path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\FilesTo"}";
             using(var write = new StreamWriter(path + "\\NewFile.csv"))
@@ -74,62 +122,8 @@ namespace Lab02_ed_22.Controllers
         // GET: JugadorController/Details/5
         public ActionResult Details(string id)
         {
-            ListaDoble<JugadorModel> pruebalista = new ListaDoble<JugadorModel>();
-            {
-                new JugadorModel
-                {
-                    Nombre = "Douglas",
-                    Apellido = "Salazar",
-                    Rol = "Jungla",
-                    KDA = 2.99,
-                    CreepScore = 10,
-                    Equipo = "SKT1"
-                };
-            };
-            var jugador1 = new JugadorModel();
-            jugador1.Nombre = "Douglas";
-            jugador1.Apellido = "Salazar";
-            jugador1.Rol = "Jungla";
-            jugador1.KDA = 2.99;
-            jugador1.CreepScore = 10;
-            jugador1.Equipo = "SKT1";
-
-            var jugador2 = new JugadorModel();
-            jugador2.Nombre = "Segundo";
-            jugador2.Apellido = "2";
-            jugador2.Rol = "22";
-            jugador2.KDA = 2.00;
-            jugador2.CreepScore = 20;
-            jugador2.Equipo = "Equipo2";
-
-            var jugador3 = new JugadorModel();
-            jugador3.Nombre = "Tercero";
-            jugador3.Apellido = "3";
-            jugador3.Rol = "33";
-            jugador3.KDA = 3.33;
-            jugador3.CreepScore = 30;
-            jugador3.Equipo = "Equipo 3";
-
-            pruebalista.Agregar(jugador1);
-            pruebalista.Agregar(jugador2);
-            pruebalista.Agregar(jugador1);
-            pruebalista.Agregar(jugador3);
-            pruebalista.Agregar(jugador1);
-            pruebalista.Agregar(jugador3);
-            pruebalista.Agregar(jugador3);
-            var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == Nombre);
+            var model = Data.Instance.jugadorlist.Find(jugador => jugador.Nombre == id);
             return View(model);
-        }
-
-        public delegate bool Delegado<T>(T valor1, T valor);
-
-        public static bool NombreEsIgual(string N1, string N2)
-        {
-            if (N1 == N2)
-            {
-                return true;
-            }
-            return false;
         }
 
         // GET: JugadorController/Create
@@ -145,6 +139,8 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
+                var reloj = new Stopwatch();
+                reloj.Start();
                 var response = JugadorModel.Guardar(new JugadorModel
                 {
                     Nombre = collection["Nombre"],
@@ -156,6 +152,8 @@ namespace Lab02_ed_22.Controllers
                 });
                 if (response)
                 {
+                    reloj.Stop();
+                    Data.Instance.TiempoEjecucion += ("Tiempo de ejecución creación de nuevo jugador: " + reloj.ElapsedMilliseconds + " ms\n");
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
@@ -180,6 +178,8 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
+                var reloj = new Stopwatch();
+                reloj.Start();
                 var jugador = Data.Instance.jugadorlist.Find(modelo => modelo.Nombre == id);
                 var validacion = JugadorModel.Editar(jugador, new JugadorModel
                 {
@@ -192,6 +192,8 @@ namespace Lab02_ed_22.Controllers
                 });
                 if (validacion)
                 {
+                    reloj.Stop();
+                    Data.Instance.TiempoEjecucion += ("Tiempo de ejecución edición de un jugador: " + reloj.ElapsedMilliseconds + " ms\n");
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
@@ -217,9 +219,13 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
+                var reloj = new Stopwatch();
+                reloj.Start();
                 var response = JugadorModel.Eliminar(id);
                 if (response)
                 {
+                    reloj.Stop();
+                    Data.Instance.TiempoEjecucion += ("Tiempo de ejecución eliminación de un jugador: " + reloj.ElapsedMilliseconds + " ms\n");
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
@@ -232,63 +238,83 @@ namespace Lab02_ed_22.Controllers
 
         public ActionResult BusquedaNombre(string Nombre)
         {
-
+            var reloj = new Stopwatch();
+            reloj.Start();
             var model = from s in Data.Instance.jugadorlist select s;
             if (!string.IsNullOrEmpty(Nombre))
             {
                 model = model.Where(jugador => jugador.Nombre.Contains(Nombre));
             }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por nombre: " + reloj.ElapsedMilliseconds + " ms\n");
             return View(model);
         }
 
         public ActionResult BusquedaApellido(string Apellido)
         {
-
+            var reloj = new Stopwatch();
+            reloj.Start();
             var model = from s in Data.Instance.jugadorlist select s;
             if (!string.IsNullOrEmpty(Apellido))
             {
                 model = model.Where(jugador => jugador.Apellido.Contains(Apellido));
             }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por apellido: " + reloj.ElapsedMilliseconds + " ms\n");
             return View(model);
         }
         public ActionResult BusquedaRol(string Rol)
         {
-
+            var reloj = new Stopwatch();
+            reloj.Start();
             var model = from s in Data.Instance.jugadorlist select s;
             if (!string.IsNullOrEmpty(Rol))
             {
                 model = model.Where(jugador => jugador.Rol.Contains(Rol));
             }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por rol: " + reloj.ElapsedMilliseconds + " ms\n");
             return View(model);
         }
         public ActionResult BusquedaKDA(string KDA)
         {
+            var reloj = new Stopwatch();
+            reloj.Start();
             var model = from s in Data.Instance.jugadorlist select s;
             if (!string.IsNullOrEmpty(KDA))
             {
                  double gr = Convert.ToDouble(KDA);
                 return View(model.Where(X => X.KDA == gr));
             }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por KDA: " + reloj.ElapsedMilliseconds + " ms\n");
             return View(model);
         }
         public ActionResult BusquedaCreepScore(string CreepScore)
         {
+            var reloj = new Stopwatch();
+            reloj.Start();
             var model = from s in Data.Instance.jugadorlist select s;
             if (!string.IsNullOrEmpty(CreepScore))
             {
                 int gr = int.Parse((CreepScore));
                 return View(model.Where(X => X.CreepScore == gr));
             }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por CreepScore: " + reloj.ElapsedMilliseconds + " ms\n");
             return View(model);
         }
         public ActionResult BusquedaEquipo(string Equipo)
         {
-
+            var reloj = new Stopwatch();
+            reloj.Start();
             var model = from s in Data.Instance.jugadorlist select s;
             if (!string.IsNullOrEmpty(Equipo))
             {
                 model = model.Where(jugador => jugador.Equipo.Contains(Equipo));
             }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución busqueda de jugador por Equipo: " + reloj.ElapsedMilliseconds + " ms\n");
             return View(model);
         }
     }

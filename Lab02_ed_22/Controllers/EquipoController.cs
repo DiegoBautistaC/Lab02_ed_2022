@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Lab02_ed_22.Controllers
 {
@@ -47,6 +48,8 @@ namespace Lab02_ed_22.Controllers
 
         private void SetEquiposList(string fileName)
         {
+            var reloj = new Stopwatch();
+            reloj.Start();
             var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\Files"}" + "\\" + fileName;
             using (var reader = new StreamReader(path))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -59,6 +62,8 @@ namespace Lab02_ed_22.Controllers
                     Data.Instance.equipoList.Add(equipo);
                 }
             }
+            reloj.Stop();
+            Data.Instance.TiempoEjecucion += ("Tiempo de ejecución lectura de csv de equipos: " + reloj.ElapsedMilliseconds + " ms\n");
         }
 
         // GET: EquipoController/Details/5
@@ -81,6 +86,8 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
+                var reloj = new Stopwatch();
+                reloj.Start();
                 var validacion = EquipoModel.Guardar(new EquipoModel
                 {
                     NombreEquipo = collection["NombreEquipo"],
@@ -90,6 +97,8 @@ namespace Lab02_ed_22.Controllers
                 });
                 if (validacion)
                 {
+                    reloj.Stop();
+                    Data.Instance.TiempoEjecucion += ("Tiempo de ejecución creación de nuevo equipo: " + reloj.ElapsedMilliseconds + " ms\n");
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
@@ -114,6 +123,8 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
+                var reloj = new Stopwatch();
+                reloj.Start();
                 var equipo = Data.Instance.equipoList.Find(modelo => modelo.NombreEquipo == id);
                 var validacion = EquipoModel.Editar(equipo, new EquipoModel
                 {
@@ -124,6 +135,8 @@ namespace Lab02_ed_22.Controllers
                 });
                 if (validacion)
                 {
+                    reloj.Stop();
+                    Data.Instance.TiempoEjecucion += ("Tiempo de ejecución edición de un equipo: " + reloj.ElapsedMilliseconds + " ms\n");
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
@@ -148,9 +161,13 @@ namespace Lab02_ed_22.Controllers
         {
             try
             {
+                var reloj = new Stopwatch();
+                reloj.Start();
                 var validacion = EquipoModel.Eliminar(id);
                 if (validacion)
                 {
+                    reloj.Stop();
+                    Data.Instance.TiempoEjecucion += ("Tiempo de ejecución eliminación de un equipo: " + reloj.ElapsedMilliseconds + " ms\n");
                     return RedirectToAction(nameof(Index));
                 }
                 return View();

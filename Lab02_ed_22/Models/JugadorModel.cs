@@ -40,7 +40,6 @@ namespace Lab02_ed_22.Models
         public static bool Guardar(JugadorModel modelo)
         {
             Data.Instance.jugadorlist.Add(modelo);
-
             return true;
         }
         public static bool Editar(JugadorModel O, JugadorModel N)
